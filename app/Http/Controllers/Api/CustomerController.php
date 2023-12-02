@@ -68,11 +68,24 @@ class CustomerController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Update the specified customer in storage.
+     *
+     * @param  Request  $request
+     * @param  Customer  $customer
+     * @return JsonResponse
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Customer $customer): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'firstName' => 'max:255',
+            'lastName' => 'max:255',
+            'email' => 'email|unique:customers,email,' . $customer->id,
+            'phone_number' => '',
+            'address' => '',
+        ]);
+
+        $customer->update($validatedData);
+        return response()->json($customer);
     }
 
     /**
