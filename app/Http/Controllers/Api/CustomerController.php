@@ -8,11 +8,14 @@ use Illuminate\Http\Request;
 class CustomerController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display a listing of the customers.
+     *
+     * @return JsonResponse
      */
-    public function index()
+    public function index(): JsonResponse
     {
-        //
+        $customers = Customer::all();
+        return response()->json($customers);
     }
 
     /**
