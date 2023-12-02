@@ -29,11 +29,23 @@ class CustomerController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created customer in storage.
+     *
+     * @param  Request  $request
+     * @return JsonResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): JsonResponse
     {
-        //
+        $validatedData = $request->validate([
+            'firstName' => 'required|max:255',
+            'lastName' => 'required|max:255',
+            'email' => 'required|email|unique:customers',
+            'phone_number' => 'required',
+            'address' => 'required',
+        ]);
+
+        $customer = Customer::create($validatedData);
+        return response()->json($customer, 201);
     }
 
     /**
