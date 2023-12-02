@@ -49,11 +49,14 @@ class CustomerController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified customer.
+     *
+     * @param  Customer  $customer
+     * @return JsonResponse
      */
-    public function show(string $id)
+    public function show(Customer $customer): JsonResponse
     {
-        //
+        return response()->json($customer);
     }
 
     /**
