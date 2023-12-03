@@ -1,14 +1,22 @@
-<template>
-    <div>
-        <h1>Hello Vue!</h1>
-    </div>
-</template>
-
 <script>
+import CustomerList from './components/CustomerList.vue';
+
 export default {
     name: 'App',
+    components: {
+        CustomerList,
+    },
+    setup() {
+        return {};
+    },
 };
 </script>
 
-<style>
-</style>
+<template>
+    <div>
+        <h1>Hello Vue!</h1>
+        <CustomerList />
+    </div>
+</template>
+
+<style></style>
