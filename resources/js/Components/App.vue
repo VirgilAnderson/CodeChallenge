@@ -1,10 +1,10 @@
 <script>
-import CustomerList from "./CustomerList.vue";
+import CustomerIndex from "./Customer/Index.vue";
 
 export default {
     name: 'App',
     components: {
-        CustomerList,
+        CustomerIndex,
     },
     setup() {
         return {};
@@ -14,7 +14,7 @@ export default {
 
 <template>
     <div>
-        <CustomerList />
+        <CustomerIndex />
     </div>
 </template>
 
