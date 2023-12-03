@@ -40,7 +40,7 @@ class CustomerController extends Controller
             'firstName' => 'required|max:255',
             'lastName' => 'required|max:255',
             'email' => 'required|email|unique:customers',
-            'phone_number' => 'required',
+            'phoneNumber' => 'required',
             'address' => 'required',
         ]);
 
