@@ -16,10 +16,6 @@ export default {
             }
         };
 
-        onMounted(() => {
-            loadCustomers();
-        });
-
         return { customers, loadCustomers };
     },
 };
@@ -58,7 +54,7 @@ export default {
                         {{ customer.email }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        {{ customer.phone_number }}
+                        {{ customer.phoneNumber }}
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         {{ customer.address }}
