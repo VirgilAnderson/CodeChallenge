@@ -16,11 +16,11 @@ export default {
         const addCustomer = async () => {
             try {
                 await axios.post('/api/customers', {
-                    firstName,
-                    lastName,
-                    email,
-                    phoneNumber,
-                    address,
+                    firstName: firstName.value,
+                    lastName: lastName.value,
+                    email: email.value.trim(),
+                    phoneNumber: phoneNumber.value,
+                    address: address.value,
                 });
                 successMessage.value = 'Customer added successfully';
                 firstName.value = '';
@@ -58,7 +58,7 @@ export default {
         <input v-model="firstName" type="text" placeholder="First Name" class="p-2 mb-4 border rounded w-full">
         <input v-model="lastName" type="text" placeholder="Last Name" class="p-2 mb-4 border rounded w-full">
         <input v-model="email" type="email" placeholder="Email" class="p-2 mb-4 border rounded w-full">
-        <input v-model="phoneNumber" type="tel" placeholder="Phone Number" class="p-2 mb-4 border rounded w-full">
+        <input v-model="phoneNumber" type="text" placeholder="Phone Number" class="p-2 mb-4 border rounded w-full">
         <input v-model="address" type="text" placeholder="Address" class="p-2 mb-4 border rounded w-full">
         <button @click="addCustomer" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
             Add Customer
