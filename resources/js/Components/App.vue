@@ -1,5 +1,5 @@
 <script>
-import CustomerList from './components/CustomerList.vue';
+import CustomerList from "./CustomerList.vue";
 
 export default {
     name: 'App',
