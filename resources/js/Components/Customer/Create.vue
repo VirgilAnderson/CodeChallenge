@@ -1,71 +1,57 @@
-<script>
+<script setup>
 import { ref } from 'vue';
 import axios from 'axios';
 
-export default {
-    name: 'CustomerCreate',
-    setup() {
-        const firstName = ref('');
-        const lastName = ref('');
-        const email = ref('');
-        const phoneNumber = ref('');
-        const address = ref('');
-        const successMessage = ref('');
-        const errorMessage = ref('');
-        const formErrors = {
-            firstName: ref(''),
-            lastName: ref(''),
-            email: ref(''),
-            phoneNumber: ref(''),
-            address: ref('')
-        };
+const firstName = ref('');
+const lastName = ref('');
+const email = ref('');
+const phoneNumber = ref('');
+const address = ref('');
+const successMessage = ref('');
+const errorMessage = ref('');
+const formErrors = {
+    firstName: ref(''),
+    lastName: ref(''),
+    email: ref(''),
+    phoneNumber: ref(''),
+    address: ref('')
+};
 
-        const addCustomer = async () => {
-            successMessage.value = '';
-            errorMessage.value = '';
-            // Clear existing errors
-            Object.keys(formErrors).forEach(field => formErrors[field].value = '');
+const emit = defineEmits(['customer-added']);
 
-            try {
-                await axios.post('/api/customers', {
-                    firstName: firstName.value.trim(),
-                    lastName: lastName.value.trim(),
-                    email: email.value.trim(),
-                    phoneNumber: phoneNumber.value.trim(),
-                    address: address.value.trim(),
-                });
-                successMessage.value = 'Customer added successfully';
-                // Reset form fields after submission
-                firstName.value = '';
-                lastName.value = '';
-                email.value = '';
-                phoneNumber.value = '';
-                address.value = '';
-            } catch (error) {
-                if (error.response && error.response.data && error.response.data.errors) {
-                    Object.keys(error.response.data.errors).forEach(field => {
-                        const camelCaseField = field.replace(/_\w/g, m => m[1].toUpperCase());
-                        formErrors[camelCaseField].value = error.response.data.errors[field][0];
-                    });
-                    errorMessage.value = 'Please correct the errors and try again.';
-                } else {
-                    errorMessage.value = 'Error adding customer: ' + error.message;
-                }
-            }
-        };
+const addCustomer = async () => {
+    successMessage.value = '';
+    errorMessage.value = '';
+    Object.keys(formErrors).forEach(field => formErrors[field].value = '');
 
-        return {
-            firstName,
-            lastName,
-            email,
-            phoneNumber,
-            address,
-            successMessage,
-            errorMessage,
-            formErrors,
-            addCustomer,
-        };
-    },
+    try {
+        await axios.post('/api/customers', {
+            firstName: firstName.value.trim(),
+            lastName: lastName.value.trim(),
+            email: email.value.trim(),
+            phoneNumber: phoneNumber.value.trim(),
+            address: address.value.trim(),
+        });
+        successMessage.value = 'Customer added successfully';
+        // Emit the custom event
+        emit('customer-added');
+        // Reset form fields after submission
+        firstName.value = '';
+        lastName.value = '';
+        email.value = '';
+        phoneNumber.value = '';
+        address.value = '';
+    } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+            Object.keys(error.response.data.errors).forEach(field => {
+                const camelCaseField = field.replace(/_\w/g, m => m[1].toUpperCase());
+                formErrors[camelCaseField].value = error.response.data.errors[field][0];
+            });
+            errorMessage.value = 'Please correct the errors and try again.';
+        } else {
+            errorMessage.value = 'Error adding customer: ' + error.message;
+        }
+    }
 };
 </script>
 

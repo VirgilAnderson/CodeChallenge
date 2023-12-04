@@ -1,24 +1,20 @@
-<script>
-import { ref, onMounted } from 'vue';
-import axios from 'axios';
 
-export default {
-    name: 'CustomerList',
-    setup() {
-        const customers = ref([]);
+<script setup>
+    import { ref } from 'vue';
+    import axios from 'axios';
 
-        const loadCustomers = async () => {
-            try {
-                const response = await axios.get('/api/customers');
-                customers.value = response.data;
-            } catch (error) {
-                console.error('There was an error fetching the customers:', error);
-            }
-        };
+    const customers = ref([]);
 
-        return { customers, loadCustomers };
-    },
-};
+    const loadCustomers = async () => {
+        try {
+            const response = await axios.get('/api/customers');
+            customers.value = response.data;
+        } catch (error) {
+            console.error('There was an error fetching the customers:', error);
+        }
+    };
+
+    defineExpose({ loadCustomers });
 </script>
 
 <template>
